@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Employee {
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  document String   @unique
+  hiredAt  DateTime
+  active   Boolean  @default(true)
+
+  requirements EmployeeDocumentRequirement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("employees")
+}
+
+model DocumentType {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+  active      Boolean @default(true)
+
+  requirements EmployeeDocumentRequirement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("document_types")
+}
+
+enum RequirementStatus {
+  PENDING
+  SUBMITTED
+}
+
+model EmployeeDocumentRequirement {
+  id     String            @id @default(uuid())
+  status RequirementStatus @default(PENDING)
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+
+  documentTypeId String
+  documentType   DocumentType @relation(fields: [documentTypeId], references: [id])
+
+  document Document?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([employeeId, documentTypeId])
+  @@map("employee_document_requirements")
+}
+
+enum DocumentVersionStatus {
+  ACTIVE
+  SUPERSEDED
+}
+
+model Document {
+  id String @id @default(uuid())
+
+  requirementId String                      @unique
+  requirement   EmployeeDocumentRequirement @relation(fields: [requirementId], references: [id])
+
+  currentVersionId String?          @unique
+  currentVersion   DocumentVersion? @relation("CurrentVersion", fields: [currentVersionId], references: [id])
+
+  versions DocumentVersion[] @relation("AllVersions")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("documents")
+}
+
+model DocumentVersion {
+  id          String                @id @default(uuid())
+  version     Int
+  status      DocumentVersionStatus @default(ACTIVE)
+  submittedAt DateTime              @default(now())
+  payload     Json
+
+  documentId String
+  document   Document @relation("AllVersions", fields: [documentId], references: [id])
+
+  isCurrentFor Document? @relation("CurrentVersion")
+
+  @@unique([documentId, version])
+  @@map("document_versions")
+}
