@@ -31,10 +31,7 @@ export class DocumentTypesService extends DocumentTypesServiceContract {
     return documentType;
   }
 
-  async update(
-    id: string,
-    dto: UpdateDocumentTypeDto,
-  ): Promise<DocumentType> {
+  async update(id: string, dto: UpdateDocumentTypeDto): Promise<DocumentType> {
     await this.findOne(id);
     return this.documentTypesRepository.update(id, dto);
   }
