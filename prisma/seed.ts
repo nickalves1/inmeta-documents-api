@@ -20,6 +20,24 @@ async function main() {
   });
 
   console.log(`Usuário pronto: ${user.email}`);
+
+  const documentTypes = [
+    { name: 'CPF', description: 'Cadastro de Pessoa Física' },
+    { name: 'Certidão', description: 'Certidão de nascimento ou casamento' },
+    { name: 'ASO', description: 'Atestado de Saúde Ocupacional' },
+  ];
+
+  for (const documentType of documentTypes) {
+    await prisma.documentType.upsert({
+      where: { name: documentType.name },
+      update: {},
+      create: documentType,
+    });
+  }
+
+  console.log(
+    `Tipos de documento prontos: ${documentTypes.map((d) => d.name).join(', ')}`,
+  );
 }
 
 main()

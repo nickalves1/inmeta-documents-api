@@ -5,6 +5,7 @@ import { AppService } from './app.service.js';
 import { PrismaModule } from './shared/database/prisma.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { EmployeesModule } from './modules/employees/employees.module.js';
+import { DocumentTypesModule } from './modules/document-types/document-types.module.js';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { EmployeesModule } from './modules/employees/employees.module.js';
     PrismaModule,
     AuthModule,
     EmployeesModule,
+    DocumentTypesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
