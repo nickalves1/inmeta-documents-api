@@ -5,7 +5,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
+import { AuthServiceContract } from './auth.service.contract.js';
 import { JwtAuthGuard } from './guards/jwt-auth.guard.js';
+import { PrismaUsersRepository } from './repositories/prisma-users.repository.js';
+import { UsersRepositoryContract } from './repositories/users.repository.contract.js';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
 
 @Module({
@@ -27,8 +30,15 @@ import { JwtStrategy } from './strategies/jwt.strategy.js';
   ],
   controllers: [AuthController],
   providers: [
-    AuthService,
+    {
+      provide: AuthServiceContract,
+      useClass: AuthService,
+    },
     JwtStrategy,
+    {
+      provide: UsersRepositoryContract,
+      useClass: PrismaUsersRepository,
+    },
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
