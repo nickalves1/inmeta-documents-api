@@ -1,4 +1,4 @@
-import { CreateRequirementsDto } from './dto/create-requirements.dto.js';
+import { CreateRequirementsDto } from './dto/create-requirements-type.dto.js';
 import { RequirementsServiceContract } from './requirements.service.contract.js';
 import { Controller, Post, Body, Param, Get, Delete } from '@nestjs/common';
 
