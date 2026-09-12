@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module.js';
 import { EmployeesModule } from './modules/employees/employees.module.js';
 import { DocumentTypesModule } from './modules/document-types/document-types.module.js';
 import { RequirementsModule } from './modules/requirements/requirements.module.js';
+import { DocumentsModule } from './modules/documents/documents.module.js';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RequirementsModule } from './modules/requirements/requirements.module.j
     EmployeesModule,
     DocumentTypesModule,
     RequirementsModule,
+    DocumentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

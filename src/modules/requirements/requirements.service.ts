@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RequirementsServiceContract } from './requirements.service.contract.js';
 import { RequirementsRepositoryContract } from './repositories/requirements.repository.contract.js';
-import { CreateRequirementsDto } from './dto/create-requirements.dto.js';
+import { CreateRequirementsDto } from './dto/create-requirements-type.dto.js';
 import type { EmployeeDocumentRequirementModel as Requirement } from '../../generated/prisma/models.js';
 
 @Injectable()

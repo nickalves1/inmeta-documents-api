@@ -1,4 +1,4 @@
-import { CreateRequirementsDto } from './dto/create-requirements.dto.js';
+import { CreateRequirementsDto } from './dto/create-requirements-type.dto.js';
 import type { EmployeeDocumentRequirementModel as Requirement } from '../../generated/prisma/models.js';
 
 export abstract class RequirementsServiceContract {
