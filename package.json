@@ -1,8 +1,8 @@
 {
   "name": "inmeta-documents-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API RESTful para gerenciamento do fluxo de documentação de colaboradores.",
+  "author": "Nicolas Alves dos Santos",
   "private": true,
   "license": "UNLICENSED",
   "type": "module",
