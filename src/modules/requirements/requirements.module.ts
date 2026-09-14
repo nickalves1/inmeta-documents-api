@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RequirementsServiceContract } from './requirements.service.contract.js';
 import { RequirementsService } from './requirements.service.js';
-import { RequirementsRepository } from './repositories/prisma-requirements.repository.js';
+import { PrismaRequirementsRepository } from './repositories/prisma-requirements.repository.js';
 import { RequirementsRepositoryContract } from './repositories/requirements.repository.contract.js';
 import { RequirementsController } from './requirements.controller.js';
 
@@ -14,7 +14,7 @@ import { RequirementsController } from './requirements.controller.js';
     },
     {
       provide: RequirementsRepositoryContract,
-      useClass: RequirementsRepository,
+      useClass: PrismaRequirementsRepository,
     },
   ],
 })

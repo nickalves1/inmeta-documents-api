@@ -1,6 +1,15 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateRequirementsDto } from './dto/create-requirements-type.dto.js';
+import { DocumentsQueryDto } from './dto/find-documents-type.dto.js';
 import { RequirementsServiceContract } from './requirements.service.contract.js';
-import { Controller, Post, Body, Param, Get, Delete } from '@nestjs/common';
 
 @Controller('requirements')
 export class RequirementsController {
@@ -11,6 +20,11 @@ export class RequirementsController {
   @Post()
   create(@Body() dto: CreateRequirementsDto) {
     return this.requirementsService.createMany(dto);
+  }
+
+  @Get()
+  findDocuments(@Query() query: DocumentsQueryDto) {
+    return this.requirementsService.findDocuments(query);
   }
 
   @Get(':id')
