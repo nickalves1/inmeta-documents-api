@@ -40,6 +40,9 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Use matching npm version
+        run: npm install -g npm@11.19.0
+
       - name: Install dependencies
         run: npm ci
 
